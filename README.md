@@ -1,4 +1,3 @@
-
 # CPF_Final-Project_Seungeun-Park
 
 ## Overview
@@ -27,6 +26,10 @@ This project explores the implementation of two versions of Risk Parity portfoli
    df = pd.read_csv(io.StringIO(response.text))
    df = load_etf_price_data(df)
    ```
+
+### Running in Google Colab
+You can also run the project directly in Google Colab using the following link:
+[Run in Google Colab](https://colab.research.google.com/drive/1trekj0sjzcWNIqxPw6X_awDXmudX3CHh#scrollTo=579cc4ac-887a-49aa-9cf1-968cb4dc0055)
 
 ## Dependencies
 These packages are required to run the notebook and can be installed using pip:
