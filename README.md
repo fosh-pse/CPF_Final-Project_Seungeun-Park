@@ -1,53 +1,48 @@
-# CPF_Final-Project_Seungeun-Park
+# Hierarchical Risk Parity and Shrinkage Risk Parity Portfolio Optimization
 
-## Overview
-Accurate prediction of asset price movements is crucial for effective trading strategies. This project involves implementing portfolio optimization techniques using Python. The main techniques covered are Hierarchical Risk Parity (HRP) and Shrinkage Risk Parity (SRP).
+This project focuses on implementing and comparing two portfolio optimization methods: Hierarchical Risk Parity (HRP) and Shrinkage Risk Parity (SRP).
 
-### Project Description
-This project explores the implementation of two versions of Risk Parity portfolios using advanced noise reduction and machine learning techniques. The focus is on comparing the performance of the Shrinkage Risk Parity Model and the Hierarchical Risk Parity Model, utilizing a CSV file for data acquisition. The models' performances are evaluated through extensive back-testing on historical ETF data. The objective is to optimize asset allocation based on risk contributions, aiming to enhance portfolio returns and examine the impact of noise reduction methods on the accuracy and stability of the portfolios.
+## Project Overview
 
-## Files
-- `CPF_Final_Project_Seungeun_Park(June_2024)_20240628.ipynb`: The Jupyter Notebook containing all code and analysis.
-- `etf_data.csv`: The data file containing historical ETF prices.
+The primary goal of this project is to develop and evaluate HRP and SRP models for asset allocation using historical ETF data.
 
-## Instructions
+## Methods
 
-### Using GitHub
-1. Ensure the `etf_data.csv` file is uploaded to the same GitHub repository as the Jupyter Notebook.
-2. Open the Jupyter Notebook in Google Colab.
-3. The code to read the CSV file from GitHub is already included in the notebook:
-   ```python
-   import pandas as pd
-   import io
-   import requests
+### Hierarchical Risk Parity (HRP)
+HRP uses hierarchical clustering to construct a diversified portfolio by avoiding concentration in correlated assets.
 
-   url = 'https://raw.githubusercontent.com/fosh-pse/CPF_Final-Project_Seungeun-Park/main/etf_data.csv'
-   response = requests.get(url)
-   df = pd.read_csv(io.StringIO(response.text))
-   df = load_etf_price_data(df)
+### Shrinkage Risk Parity (SRP)
+SRP combines risk parity with shrinkage techniques to improve the stability of the covariance matrix estimation.
+
+## Data
+
+The project uses ETF data (`etf_data.csv`) containing historical prices and other relevant financial information.
+
+## Usage
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/fosh-pse/CPF_Final-Project_Seungeun-Park.git
+   cd CPF_Final-Project_Seungeun-Park
    ```
 
-### Running in Google Colab
-You can also run the project directly in Google Colab using the following link:
-[Run in Google Colab](https://colab.research.google.com/drive/1trekj0sjzcWNIqxPw6X_awDXmudX3CHh#scrollTo=579cc4ac-887a-49aa-9cf1-968cb4dc0055)
+2. **Run Jupyter Notebook**:
+   Open `HRP_SRP_Comparison.ipynb` in Jupyter Notebook or Google Colab to execute the code and see the results.
 
-## Dependencies
-These packages are required to run the notebook and can be installed using pip:
-```bash
-pip install numpy pandas matplotlib seaborn scipy requests
-```
+## Results
 
-### Additional Packages
-Ensure the following additional packages are imported in the notebook:
-```python
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.optimize import minimize
-from scipy.cluster.hierarchy import linkage, dendrogram
-from scipy.spatial.distance import pdist, squareform
-import os
-import requests
-import io
-```
+The results section includes a detailed comparison of HRP and SRP models based on their performance metrics from backtesting.
+
+## Conclusion
+
+This project demonstrates the effectiveness of HRP and SRP models in portfolio optimization. The detailed analysis and backtesting results provide insights into the strengths and limitations of each method.
+
+## Authors
+
+Seungeun Park
+
+For more details, visit the [project repository](https://github.com/fosh-pse/CPF_Final-Project_Seungeun-Park) or the [Google Colab notebook](https://colab.research.google.com/drive/1trekj0sjzcWNIqxPw6X_awDXmudX3CHh#scrollTo=579cc4ac-887a-49aa-9cf1-968cb4dc0055).
+
+---
+
+This README provides a comprehensive overview of the project, guiding users from the introduction to the execution and results of the portfolio optimization methods.
