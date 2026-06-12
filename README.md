@@ -17,6 +17,14 @@ The Ledoit-Wolf shrinkage method aims to improve the estimation of the covarianc
 ## Data
 The project uses ETF data (`etf_data.csv`) containing historical prices and other relevant financial information from January 1, 2005, to May 31, 2024.
 
+### Using your own data (file upload)
+You are not limited to the bundled dataset. The data-loading section of the notebook lets you upload your own ETF price CSV and runs the full analysis on it:
+
+- **Jupyter / JupyterLab**: run the upload cell, click **Upload** on the widget, choose a `.csv`, then run the data-loading cell.
+- **Google Colab**: run the data-loading cell and a file picker appears (press *Cancel* to skip).
+
+The CSV must contain a `Date` column plus one price column per ticker. If no file is uploaded, the notebook automatically falls back to the default `etf_data.csv` hosted on GitHub, so it always runs end-to-end.
+
 ## Usage
 1. **Clone the Repository**:
    ```bash
