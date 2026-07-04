@@ -1,0 +1,130 @@
+/* ============ fonts ============ */
+@font-face{ font-family:'JBMono'; font-weight:400; font-style:normal;
+  src:url('node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face{ font-family:'JBMono'; font-weight:700; font-style:normal;
+  src:url('node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2') format('woff2'); }
+
+:root{
+  --ink:#1a1c22; --muted:#5b6270; --line:#e4e7ec;
+  --primary:#1f3a6d; --primary2:#2a4d8f; --accent:#0d7a72;
+  --code-bg:#f6f8fa; --code-ink:#24292f;
+  --tip-bg:#eef4ff; --tip-bd:#2f6fed;
+  --ex-bg:#eefaf1; --ex-bd:#1a9d54;
+  --key-bg:#fff7e6; --key-bd:#d98a00;
+  --warn-bg:#fdeeee; --warn-bd:#d64545;
+  --note-bg:#f3f4f6; --note-bd:#8a94a6;
+}
+
+*{ box-sizing:border-box; }
+html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{
+  font-family:'Noto Sans CJK KR','Noto Sans KR',sans-serif;
+  color:var(--ink); font-size:14px; line-height:1.72;
+  margin:0; word-break:keep-all; overflow-wrap:anywhere;
+}
+.content{ counter-reset: none; }
+
+/* ============ headings ============ */
+h1,h2,h3,h4{ line-height:1.32; font-weight:700; color:var(--primary); }
+h2{
+  font-size:23px; margin:0 0 16px; padding:14px 0 10px;
+  border-bottom:3px solid var(--primary);
+  break-before:page; break-after:avoid;
+}
+section.doc-part > h2:first-child{ margin-top:0; }
+h3{
+  font-size:17.5px; color:var(--primary2); margin:26px 0 10px;
+  padding-left:11px; border-left:5px solid var(--accent); break-after:avoid;
+}
+h4{ font-size:14.5px; color:#2b3242; margin:18px 0 8px; break-after:avoid; }
+h2 .anchor,h3 .anchor,h4 .anchor{ font-size:0; line-height:0; opacity:0; }
+
+/* first content heading should not force an extra blank page after TOC */
+.content section.doc-part:first-child > h2:first-child{ break-before:auto; }
+
+p{ margin:9px 0; }
+strong{ color:#111318; }
+a{ color:var(--primary2); text-decoration:none; }
+hr{ border:0; border-top:1px solid var(--line); margin:22px 0; }
+
+/* ============ lists ============ */
+ul,ol{ margin:9px 0 9px 4px; padding-left:22px; }
+li{ margin:4px 0; }
+
+/* ============ code ============ */
+code{
+  font-family:'JBMono','Noto Sans CJK KR',monospace; font-size:12.3px;
+  background:var(--code-bg); color:#a3336b; padding:1.5px 5px; border-radius:5px;
+  border:1px solid #eceff3;
+}
+pre{
+  background:var(--code-bg); border:1px solid #e2e7ec; border-left:4px solid var(--primary2);
+  border-radius:8px; padding:12px 14px; margin:12px 0; overflow:hidden;
+  break-inside:avoid;
+}
+pre code{
+  font-family:'JBMono','Noto Sans CJK KR',monospace; font-size:11.6px; line-height:1.55;
+  background:none; color:var(--code-ink); padding:0; border:0;
+  white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere; display:block;
+}
+
+/* ============ tables ============ */
+table{ border-collapse:collapse; width:100%; margin:14px 0; font-size:12.7px; break-inside:avoid; }
+th,td{ border:1px solid var(--line); padding:7px 10px; text-align:left; vertical-align:top; }
+thead th{ background:var(--primary); color:#fff; font-weight:700; border-color:var(--primary); }
+tbody tr:nth-child(even){ background:#f7f9fc; }
+
+/* ============ blockquote fallback ============ */
+blockquote{ border-left:4px solid var(--note-bd); background:var(--note-bg);
+  margin:12px 0; padding:8px 14px; border-radius:6px; }
+
+/* ============ callouts ============ */
+.callout{ margin:13px 0; padding:11px 15px 11px 15px; border-radius:9px;
+  border:1px solid transparent; border-left-width:5px; break-inside:avoid; font-size:13.4px; }
+.callout p{ margin:5px 0; }
+.callout p:first-child{ margin-top:0; } .callout p:last-child{ margin-bottom:0; }
+.callout.tip{ background:var(--tip-bg); border-color:var(--tip-bd); }
+.callout.example{ background:var(--ex-bg); border-color:var(--ex-bd); }
+.callout.key{ background:var(--key-bg); border-color:var(--key-bd); }
+.callout.warn{ background:var(--warn-bg); border-color:var(--warn-bd); }
+.callout.note{ background:var(--note-bg); border-color:var(--note-bd); }
+.callout strong{ color:#111318; }
+
+/* ============ math ============ */
+.katex{ font-size:1.02em; }
+.katex-display{ margin:14px 0; padding:2px 0; overflow-x:auto; overflow-y:hidden; break-inside:avoid; }
+.katex-display > .katex{ font-size:1.04em; white-space:nowrap; }
+.callout .katex{ font-size:1em; }
+
+/* ============ cover ============ */
+.cover{ min-height:95vh; display:flex; flex-direction:column; justify-content:center;
+  break-after:page; padding:8mm 4mm; position:relative; }
+.cover-kicker{ font-size:12.5px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--accent); font-weight:700; margin-bottom:20px; }
+.cover-title{ font-size:41px; line-height:1.22; color:var(--primary); margin:0 0 14px; font-weight:800; }
+.cover-sub{ font-size:17px; color:var(--muted); font-weight:600; letter-spacing:.01em; }
+.cover-rule{ height:4px; width:92px; background:var(--accent); border-radius:3px; margin:26px 0; }
+.cover-abstract{ font-size:14.5px; line-height:1.8; color:#2c313c; max-width:86%; }
+.cover-toplist{ list-style:none; padding:0; margin:22px 0 0; }
+.cover-toplist li{ font-size:13.3px; color:#333a47; padding:7px 0 7px 20px; position:relative;
+  border-top:1px solid var(--line); }
+.cover-toplist li:last-child{ border-bottom:1px solid var(--line); }
+.cover-toplist li::before{ content:"▸"; color:var(--accent); position:absolute; left:0; top:7px; }
+.cover-meta{ margin-top:auto; padding-top:30px; display:flex; gap:34px; font-size:13px; color:#333a47; }
+.cover-meta span{ display:block; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:2px; }
+
+/* ============ toc ============ */
+.tocpage{ break-after:page; padding-top:4px; }
+.toc-title{ break-before:auto; border-bottom:3px solid var(--primary); }
+.toc-title .toc-en{ font-size:14px; color:var(--muted); font-weight:600; letter-spacing:.08em; }
+.toc{ margin-top:6px; }
+.toc-h2{ font-size:14.5px; font-weight:700; color:var(--primary); margin:12px 0 3px; }
+.toc-h2 a{ color:var(--primary); }
+.toc-sub{ list-style:none; margin:2px 0 6px; padding-left:16px; }
+.toc-sub li{ font-size:12.6px; color:#3b4250; margin:2px 0; padding-left:12px; position:relative; }
+.toc-sub li::before{ content:"·"; position:absolute; left:0; color:var(--accent); }
+.toc-sub a{ color:#3b4250; }
+
+/* keep figures/paragraph orphans reasonable */
+p,li{ orphans:2; widows:2; }
