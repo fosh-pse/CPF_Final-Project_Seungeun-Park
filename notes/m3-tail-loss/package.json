@@ -1,0 +1,18 @@
+{
+  "name": "m3-tail-loss-note",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "M3 study note (DeepVaR / Transformer / Multi-Transformer) — Markdown + KaTeX -> PDF",
+  "scripts": {
+    "build": "node build.mjs",
+    "pdf": "node build.mjs && node print.mjs"
+  },
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "^5",
+    "katex": "^0.16",
+    "marked": "^18",
+    "marked-katex-extension": "^5",
+    "playwright": "^1"
+  }
+}
