@@ -1,0 +1,12 @@
+{
+  "nonoil_source": "SYNTHETIC placeholder (run USE_LIVE=True for real FRED)",
+  "n_months": 485,
+  "state_distribution": {
+    "Up": 248,
+    "Down": 191,
+    "Flat": 46
+  },
+  "corr_WTI_Brent_ret": 0.9561767566572745,
+  "corr_WTI_USDret": -0.5684338046146338,
+  "corr_WTI_VIXchg": 0.33106187380145685
+}
