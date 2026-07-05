@@ -1,0 +1,18 @@
+{
+  "n_returns": 1012,
+  "mean_weekly_return": 0.0006947761248803583,
+  "ann_vol": 0.27272517027166393,
+  "skewness": -0.05136860386840656,
+  "excess_kurtosis": 4.64731295210212,
+  "jarque_bera_stat": 911.140394997218,
+  "jarque_bera_p": 1.4072689541668972e-198,
+  "adf_level_stat": -1.8405943314687885,
+  "adf_level_p": 0.3605019927808699,
+  "adf_return_stat": -28.183974395115573,
+  "adf_return_p": 0.0,
+  "ljungbox_ret_p": 0.0011413782567223617,
+  "ljungbox_ret2_p": 1.3490444915862177e-17,
+  "corr_WTI_USD": -0.42910998524656796,
+  "corr_WTI_SP500": 0.3421649003825663,
+  "corr_WTI_XLE": 0.8088509129676593
+}
