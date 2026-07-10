@@ -1,0 +1,25 @@
+{
+  "source": "SYNTHETIC placeholder",
+  "frequency": "weekly (W-FRI)",
+  "n_rows": 1013,
+  "start": "2005-01-07",
+  "end": "2024-05-31",
+  "columns": [
+    "WTI",
+    "Brent",
+    "USD_Index",
+    "UST10Y",
+    "CPI",
+    "IndProd",
+    "US_Production",
+    "US_Inventory",
+    "SP500",
+    "Gold",
+    "VIX",
+    "OVX",
+    "NatGas",
+    "XLE",
+    "GPR"
+  ],
+  "seed": 20240628
+}

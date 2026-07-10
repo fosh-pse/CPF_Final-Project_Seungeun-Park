@@ -1,0 +1,13 @@
+[bad-data] USD_Index: 1 non-positive value(s) set to NaN -> [np.str_('2016-11-25')]
+[bad-data] Gold: 1 non-positive value(s) set to NaN -> [np.str_('2020-05-08')]
+[outlier] WTI: 5 print(s) with |robust z|>8 on returns flagged -> [np.str_('2007-03-02'), np.str_('2007-05-25'), np.str_('2010-10-08'), np.str_('2010-10-15'), np.str_('2020-05-15')]
+[outlier] Brent: 1 print(s) with |robust z|>8 on returns flagged -> [np.str_('2007-05-25')]
+[missing] CPI: 780 gaps forward/back-filled (release-date carry)
+[missing] IndProd: 780 gaps forward/back-filled (release-date carry)
+[missing] US_Production: 780 gaps forward/back-filled (release-date carry)
+[missing] Brent: 15 gap(s) linearly interpolated in time
+[missing] NatGas: 19 gap(s) linearly interpolated in time
+[missing] Gold: 16 gap(s) linearly interpolated in time
+[missing] UST10Y: 13 gap(s) linearly interpolated in time
+[missing] WTI: 5 gap(s) linearly interpolated in time
+[missing] USD_Index: 1 gap(s) linearly interpolated in time
