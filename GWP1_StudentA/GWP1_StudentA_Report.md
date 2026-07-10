@@ -42,21 +42,7 @@ screening evidence. Predictive timing is left for later model validation. This
 avoids overstating the early-stage evidence while still giving GWP2 a coherent
 set of candidate parents for WTI return state.
 
-## 2. Role and scope
-
-This document covers the four tasks assigned to Student A in the group's
-crude-oil PGM project. Under Step 3, Student A identifies, imports, structures
-and graphs the macroeconomic and geopolitical variables. Under Step 5, Student A
-runs the extreme-outlier part of the cleaning protocol on *all* of the group's
-series, so that every dataset passes through this lens once. Under Step 7,
-Student A produces the distributional plots, again for all datasets. Under
-Step 9, Student A summarises probabilistic graphical models and the distinction
-between belief networks and Markov networks. The group-level steps — problem
-formulation, the combined data dictionary, the sterilized dataset, the Step 8
-answers and the inferred-causality pseudocode — are written jointly and are not
-repeated here.
-
-## 3. Step 3 — Macroeconomic and geopolitical variables
+## 2. Macroeconomic and geopolitical variables (Step 3)
 
 Two series in the group panel fall under Student A's specialism.
 
@@ -74,9 +60,13 @@ spikes. The Gulf War, 9/11, the Iraq invasion and the 2022 invasion of Ukraine
 all appear as sharp jumps followed by decay. In the core sample the largest
 monthly changes land on February–April 2022 and on October 2023.
 
+![Figure A1](figures/figA1_macro_geo_levels.png)
+
+**Figure A1 — Student A variables in levels: broad U.S. dollar index and the GPR index (full history), with major geopolitical events marked.**
+
 Both series were imported from their raw files, aligned to the group's monthly
 grid, and transformed — the dollar to monthly log-returns, GPR to level and
-monthly change (Figures A1–A2). Two structuring observations matter for the
+monthly change (Figure A2). Two structuring observations matter for the
 model stage. First, the dollar return shows the expected inverse relationship
 with WTI returns, about **−0.44** in the core sample, the strongest single
 non-oil link in the panel. Second, GPR's spike-and-decay shape means it carries
@@ -84,7 +74,11 @@ information as a *state* (calm / elevated / extreme) rather than as a smooth
 level, which supports the group's decision to discretize every driver before
 the Bayesian-network stage.
 
-## 4. Step 5 — Extreme-outlier screening (all series)
+![Figure A2](figures/figA2_macro_geo_changes.png)
+
+**Figure A2 — Structured to the core sample: dollar monthly log-return and GPR monthly change.**
+
+## 3. Extreme-outlier screening on all series (Step 5)
 
 Student A's cleaning responsibility is the extreme-outlier check, applied to
 every transformed series in the panel: WTI and Brent returns, the dollar
@@ -131,12 +125,20 @@ handed to Student B, whose bad-data check covers the mechanical problems
 (non-positive prices, duplicates), and to Student C for the missing-value
 treatment. Figure A3 shows the flags overlaid on the WTI return series.
 
-## 5. Step 7 — Distributional analysis (all datasets)
+![Figure A3](figures/figA3_outlier_flags.png)
+
+**Figure A3 — WTI monthly log-returns with the outlier flags. Flagged months are reviewed and kept, not deleted.**
+
+## 4. Distributional analysis of all datasets (Step 7)
 
 Student A's EDA lens is the shape of each variable's distribution. Figure A4
 shows a histogram of every transformed series against its Normal fit, Figure A5
 gives the target a closer look with a Normal overlay and a Q-Q plot, and
 Table A2 collects the moments.
+
+![Figure A4](figures/figA4_distribution_grid.png)
+
+**Figure A4 — Distribution of every transformed series against its Normal fit (skew and excess kurtosis in each title).**
 
 **Table A2 — Distribution summary, core sample (239 months).**
 
@@ -152,7 +154,12 @@ Table A2 collects the moments.
 Three observations. First, the target is the worst-behaved series in the panel:
 WTI returns are left-skewed (−0.91) with excess kurtosis of 8.55, and a
 Jarque–Bera test rejects Normality at any conventional level. The Q-Q plot
-bends off the reference line at both ends — the visual signature of fat tails.
+(Figure A5) bends off the reference line at both ends — the visual signature of
+fat tails.
+
+![Figure A5](figures/figA5_wti_distribution.png)
+
+**Figure A5 — WTI monthly log-returns: histogram with Normal overlay (left) and Normal Q-Q plot (right).**
 Second, the skews are not all the same direction. The oil benchmarks skew
 *negative* (crashes are bigger than rallies), while the dollar, the VIX and GPR
 skew *positive* — stress variables spike upward. That asymmetry is economically
@@ -167,7 +174,7 @@ Down/Flat/Up for the target, Low/Medium/High for drivers — before the
 Bayesian-network stage, since conditional probability tables make no
 distributional assumption at all.
 
-## 6. Step 9 — Probabilistic graphical models: belief networks and Markov networks
+## 5. Probabilistic graphical models: belief networks and Markov networks (Step 9)
 
 **What a PGM is.** A probabilistic graphical model represents a joint
 probability distribution with a graph. Nodes are random variables; edges mark
