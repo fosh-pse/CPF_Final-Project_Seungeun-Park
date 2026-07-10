@@ -37,50 +37,37 @@ oil price files, FRED `TWEXBGSMTH`, CBOE VIX monthly file, EIA `WCESTUS1`,
 and the Caldara–Iacoviello geopolitical risk index."""))
 
 cells.append(md(
-"""### 0 · Setup
+"""### 0 · Setup and data loading
 
-The next cell makes this notebook **self-contained**: the three CSV files it
-needs are embedded inside the notebook (gzip + base64) and are written to
-`data/` automatically if they are not already there. You can run this single
-`.ipynb` on Colab or anywhere else with no extra uploads."""))
-
-# ---- data bootstrap: embed the required CSVs so the .ipynb runs standalone --
-import base64 as _b64
-import gzip as _gzip
-
-_EMBED_FILES = ["data/gwp1_augmented_panel_model_with_gpr.csv",
-                "data/TWEXBGSMTH_monthly.csv",
-                "data/GPR_monthly.csv"]
-_embed_lines = ["import base64, gzip, os",
-                'os.makedirs("data", exist_ok=True)',
-                'os.makedirs("figures", exist_ok=True)',
-                "_EMBED = {"]
-for _p in _EMBED_FILES:
-    _blob = _b64.b64encode(_gzip.compress(open(_p, "rb").read(), 9)).decode()
-    _embed_lines.append(f'    "{_p}": "{_blob}",')
-_embed_lines += ["}",
-                 "for _path, _blob in _EMBED.items():",
-                 "    if not os.path.exists(_path):",
-                 "        with open(_path, 'wb') as _f:",
-                 "            _f.write(gzip.decompress(base64.b64decode(_blob)))",
-                 "        print('restored', _path)",
-                 "    else:",
-                 "        print('found   ', _path)",
-                 "print('data ready')"]
-cells.append(code("\n".join(_embed_lines)))
-
+Project data lives in the team repository. The loader below reads each CSV from
+the local `data/` folder when the repo is checked out, and falls back to the
+repository's raw GitHub URL otherwise — pinned to a fixed commit so the numbers
+in this notebook stay reproducible. Either way, the same files load and the
+notebook runs top to bottom with no manual uploads."""))
 cells.append(code(
-"""import numpy as np
+"""import os
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
 
 plt.rcParams.update({"figure.autolayout": True, "axes.grid": True,
                      "grid.alpha": .3, "font.size": 11})
-DATA, FIG = "data", "figures"
+FIG = "figures"
+os.makedirs(FIG, exist_ok=True)
 
-panel = pd.read_csv(f"{DATA}/gwp1_augmented_panel_model_with_gpr.csv",
-                    parse_dates=["Date"]).set_index("Date")
+# team repository, pinned to the commit that holds this dataset version
+REPO_RAW = ("https://raw.githubusercontent.com/fosh-pse/"
+            "CPF_Final-Project_Seungeun-Park/"
+            "37b7f33174ee41e593194ef47b03997a4be4bba1/GWP1_StudentA/data")
+
+def load_csv(name, **kwargs):
+    path = os.path.join("data", name)
+    source = path if os.path.exists(path) else f"{REPO_RAW}/{name}"
+    return pd.read_csv(source, **kwargs)
+
+panel = load_csv("gwp1_augmented_panel_model_with_gpr.csv",
+                 parse_dates=["Date"]).set_index("Date")
 print(panel.shape, "| sample:", panel.index.min().date(), "->", panel.index.max().date())
 panel.head(3)"""))
 
@@ -101,8 +88,8 @@ Student A is responsible for the two non-market drivers in the group panel.
 Both raw series are imported below, structured to the monthly grid, and graphed
 in levels and in monthly changes."""))
 cells.append(code(
-"""usd_raw = pd.read_csv(f"{DATA}/TWEXBGSMTH_monthly.csv", parse_dates=["Date"]).set_index("Date")
-gpr_raw = pd.read_csv(f"{DATA}/GPR_monthly.csv", parse_dates=["Date"]).set_index("Date")
+"""usd_raw = load_csv("TWEXBGSMTH_monthly.csv", parse_dates=["Date"]).set_index("Date")
+gpr_raw = load_csv("GPR_monthly.csv", parse_dates=["Date"]).set_index("Date")
 print("dollar raw:", usd_raw.index.min().date(), "->", usd_raw.index.max().date(), len(usd_raw), "rows")
 print("GPR raw:   ", gpr_raw.index.min().date(), "->", gpr_raw.index.max().date(), len(gpr_raw), "rows")
 
@@ -169,7 +156,7 @@ for c in SERIES:
 
 flag_tab = (pd.DataFrame(flags, columns=["Month", "Series", "Value", "Robust z"])
               .sort_values(["Series", "Month"]).reset_index(drop=True))
-flag_tab.to_csv(f"{DATA}/studentA_outlier_flags.csv", index=False)
+flag_tab.to_csv("studentA_outlier_flags.csv", index=False)   # hand-off to Student B
 print(f"{len(flag_tab)} flagged observations across {len(SERIES)} series")
 flag_tab"""))
 cells.append(code(
@@ -214,7 +201,7 @@ summ = pd.DataFrame({c: {"mean": panel[c].mean(), "std": panel[c].std(),
                          "skew": panel[c].skew(), "excess kurtosis": panel[c].kurt(),
                          "min": panel[c].min(), "max": panel[c].max()}
                      for c in SERIES}).T.round(4)
-summ.to_csv(f"{DATA}/studentA_distribution_summary.csv")
+summ.to_csv("studentA_distribution_summary.csv")             # hand-off to the group
 summ"""))
 cells.append(code(
 """r = panel["WTI_ret"].dropna()
@@ -271,9 +258,9 @@ inferred-causality pseudocode (Step 10) proceeds."""))
 
 cells.append(md(
 """---
-*Hand-off notes.* Outlier flags are in `data/studentA_outlier_flags.csv` for
-Student B's bad-data pass; distribution summaries are in
-`data/studentA_distribution_summary.csv`. All figures regenerate by running this
+*Hand-off notes.* Outlier flags are written to `studentA_outlier_flags.csv` for
+Student B's bad-data pass; distribution summaries to
+`studentA_distribution_summary.csv`. All figures regenerate by running this
 notebook top to bottom."""))
 
 nb = new_notebook(cells=cells)
