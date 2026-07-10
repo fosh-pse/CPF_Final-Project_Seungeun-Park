@@ -12,7 +12,37 @@
 
 ---
 
-## 1. Role and scope
+## 1. Problem Formulation
+
+### 1.1 Problem addressed by the thesis
+
+The problem is to forecast crude oil price states in a setting where several
+drivers move together and where the relationships may change during stress
+periods. A plain one-variable price model is too narrow for this task. Oil
+prices respond to market benchmarks, currency conditions, risk appetite,
+inventories, and geopolitical risk. The purpose of this GWP1 report is
+therefore not to claim a final causal model, but to prepare a clean variable
+panel for Bayesian-network development.
+
+### 1.2 Why Bayesian networks fit the problem
+
+Bayesian networks are useful because they express multivariate dependence
+through nodes, directed edges, and conditional probability tables. That
+structure is easier to interpret than a black-box regression when the research
+question is about how oil-price states are associated with candidate drivers.
+The network also allows future scenario questions, such as how the probability
+of a WTI down month changes when the dollar strengthens and geopolitical risk
+is high.
+
+### 1.3 Advantages of the methodology
+
+The main advantage is that the method can combine data evidence with domain
+restrictions. In this report, same-month dependence statistics are treated as
+screening evidence. Predictive timing is left for later model validation. This
+avoids overstating the early-stage evidence while still giving GWP2 a coherent
+set of candidate parents for WTI return state.
+
+## 2. Role and scope
 
 This document covers the four tasks assigned to Student A in the group's
 crude-oil PGM project. Under Step 3, Student A identifies, imports, structures
@@ -26,7 +56,7 @@ formulation, the combined data dictionary, the sterilized dataset, the Step 8
 answers and the inferred-causality pseudocode — are written jointly and are not
 repeated here.
 
-## 2. Step 3 — Macroeconomic and geopolitical variables
+## 3. Step 3 — Macroeconomic and geopolitical variables
 
 Two series in the group panel fall under Student A's specialism.
 
@@ -54,7 +84,7 @@ information as a *state* (calm / elevated / extreme) rather than as a smooth
 level, which supports the group's decision to discretize every driver before
 the Bayesian-network stage.
 
-## 3. Step 5 — Extreme-outlier screening (all series)
+## 4. Step 5 — Extreme-outlier screening (all series)
 
 Student A's cleaning responsibility is the extreme-outlier check, applied to
 every transformed series in the panel: WTI and Brent returns, the dollar
@@ -101,7 +131,7 @@ handed to Student B, whose bad-data check covers the mechanical problems
 (non-positive prices, duplicates), and to Student C for the missing-value
 treatment. Figure A3 shows the flags overlaid on the WTI return series.
 
-## 4. Step 7 — Distributional analysis (all datasets)
+## 5. Step 7 — Distributional analysis (all datasets)
 
 Student A's EDA lens is the shape of each variable's distribution. Figure A4
 shows a histogram of every transformed series against its Normal fit, Figure A5
@@ -137,7 +167,7 @@ Down/Flat/Up for the target, Low/Medium/High for drivers — before the
 Bayesian-network stage, since conditional probability tables make no
 distributional assumption at all.
 
-## 5. Step 9 — Probabilistic graphical models: belief networks and Markov networks
+## 6. Step 9 — Probabilistic graphical models: belief networks and Markov networks
 
 **What a PGM is.** A probabilistic graphical model represents a joint
 probability distribution with a graph. Nodes are random variables; edges mark

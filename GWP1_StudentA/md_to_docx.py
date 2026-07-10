@@ -31,9 +31,31 @@ def add_runs(paragraph, text):
             paragraph.add_run(part)
 
 
+BODY_FONT = "Arial"
+
+
+def _force_font(doc):
+    """Apply BODY_FONT to every style and run (code spans keep Consolas)."""
+    for st in ["Normal", "Heading 1", "Heading 2", "Heading 3", "Heading 4",
+               "Title", "Intense Quote", "List Bullet", "List Number"]:
+        try:
+            doc.styles[st].font.name = BODY_FONT
+        except KeyError:
+            pass
+    paras = list(doc.paragraphs)
+    for t in doc.tables:
+        for row in t.rows:
+            for cell in row.cells:
+                paras.extend(cell.paragraphs)
+    for p in paras:
+        for r in p.runs:
+            if r.font.name != "Consolas":
+                r.font.name = BODY_FONT
+
+
 def convert(md_path, docx_path, fig_dir="figures"):
     doc = Document()
-    doc.styles["Normal"].font.name = "Calibri"
+    doc.styles["Normal"].font.name = BODY_FONT
     doc.styles["Normal"].font.size = Pt(11)
 
     lines = open(md_path, encoding="utf-8").read().splitlines()
@@ -123,8 +145,9 @@ def convert(md_path, docx_path, fig_dir="figures"):
         add_runs(doc.add_paragraph(), ln)
         i += 1
 
+    _force_font(doc)
     doc.save(docx_path)
-    print(f"wrote {docx_path}")
+    print(f"wrote {docx_path} (font: {BODY_FONT})")
 
 
 if __name__ == "__main__":
