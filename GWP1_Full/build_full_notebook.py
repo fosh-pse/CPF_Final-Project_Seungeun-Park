@@ -24,7 +24,7 @@ cells.append(md(
 
 Monthly panel: WTI (target), Brent, U.S. dollar index, VIX, U.S. crude inventories, and the geopolitical risk (GPR) index. Core sample 2006-02 to 2025-12, 239 observations.
 
-The individual cleaning and plotting tasks of Students B and C (bad-data checks, missing-value treatment, time-series plots, multivariate plots) are prepared in their own notebooks and are not repeated here."""))
+Sections marked "reserved for Student B/C" are left open on purpose. Teammates fill those in; everything else is complete."""))
 
 cells.append(md(
 """### 0. Setup and data loading
@@ -93,6 +93,11 @@ plt.savefig("figures/fig2_changes.png", dpi=130); plt.show()
 
 print("corr(WTI return, dollar return):", round(panel["WTI_ret"].corr(panel["DollarIndex_ret"]), 3))"""))
 
+cells.append(md(
+"""**[ Reserved for Student B: description of the microeconomic variable (U.S. crude inventories), its import, structure and graphs. ]**
+
+**[ Reserved for Student C: description of the financial variables (VIX, Brent benchmark), their import, structure and graphs. ]**"""))
+
 # ------------------------------------------------------------- Step 4 -------
 cells.append(md("### 2. Step 4: Data dictionary (group table)"))
 cells.append(code(
@@ -121,7 +126,7 @@ cells.append(md(
 
 Each observation gets a robust z-score built from the median and the median absolute deviation. Median-based statistics are not pulled around by the outliers being searched for, which is the weakness of a plain mean-based z-score. A month is flagged when the absolute score is above 5.
 
-Flagged months are reviewed and kept, not deleted. In this market the extreme months are usually real events, and removing them would strip out the stress behaviour a risk model has to learn. The bad-data and missing-value checks are Student B's and Student C's parts of this step."""))
+Flagged months are reviewed and kept, not deleted. In this market the extreme months are usually real events, and removing them would strip out the stress behaviour a risk model has to learn. The bad-data and missing-value checks belong to Students B and C and have their own sections below."""))
 cells.append(code(
 """SERIES = ["WTI_ret", "Brent_ret", "DollarIndex_ret", "VIX_change",
           "Inventory_change", "GPR_change"]
@@ -155,6 +160,11 @@ ax.set(title="Fig 3. WTI monthly log returns with outlier flags (kept)", ylabel=
 ax.legend()
 plt.savefig("figures/fig3_flags.png", dpi=130); plt.show()"""))
 
+cells.append(md(
+"""**[ Reserved for Student B: bad-data checks on all series (non-positive prices, duplicated dates, inconsistent joins). ]**
+
+**[ Reserved for Student C: missing-value treatment on all series (imputation or interpolation method and its justification). ]**"""))
+
 # ------------------------------------------------------------- Step 6 -------
 cells.append(md(
 """### 4. Step 6: The sterilized panel
@@ -171,7 +181,7 @@ print("duplicated dates:", int(panel.index.duplicated().sum()))"""))
 cells.append(md(
 """### 5. Step 7: Distributional plots (Student A, all datasets)
 
-One histogram per transformed series, each against its own Normal fit, then a closer look at the target. Time-series plots (Student B) and multivariate plots (Student C) are in their notebooks."""))
+One histogram per transformed series, each against its own Normal fit, then a closer look at the target."""))
 cells.append(code(
 """fig, axes = plt.subplots(2, 3, figsize=(15, 8))
 for ax, c in zip(axes.ravel(), SERIES):
@@ -201,6 +211,11 @@ stats.probplot(r, dist="norm", plot=ax[1])
 ax[1].set_title("Fig 5b. Normal Q-Q plot")
 plt.savefig("figures/fig5_wti.png", dpi=130); plt.show()
 print(f"WTI: skew {r.skew():.2f}, excess kurtosis {r.kurt():.2f}")"""))
+
+cells.append(md(
+"""**[ Reserved for Student B: time-series plots for all datasets. ]**
+
+**[ Reserved for Student C: multivariate plots for all datasets. ]**"""))
 
 # ------------------------------------------------------------- Step 8 -------
 cells.append(md("### 6. Step 8: Group questions"))
@@ -244,7 +259,12 @@ A belief network, also called a Bayesian network, uses a directed acyclic graph.
 
 A Markov network uses an undirected graph. Edges stand for symmetric association, the joint distribution factorises over cliques through potential functions, and a normalising constant is needed. It suits problems where dependence has no natural direction, such as spatial data, but it cannot say which way an influence runs.
 
-The group therefore works with a belief network. The undirected view still appears inside the procedure, since structure learning first builds an undirected skeleton from independence tests and only then orients the edges. Summaries of parameter versus structure learning (Student B) and of Markov chains and blankets (Student C) are in their sections."""))
+The group therefore works with a belief network. The undirected view still appears inside the procedure, since structure learning first builds an undirected skeleton from independence tests and only then orients the edges."""))
+
+cells.append(md(
+"""**[ Reserved for Student B: parameter learning and how it differs from structure learning. ]**
+
+**[ Reserved for Student C: Markov chains and Markov blankets. ]**"""))
 
 # ------------------------------------------------------------- Step 10 ------
 cells.append(md(
