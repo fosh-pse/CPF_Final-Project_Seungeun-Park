@@ -36,7 +36,39 @@ The group panel (WTI, Brent, dollar, VIX, inventories, GPR; monthly,
 oil price files, FRED `TWEXBGSMTH`, CBOE VIX monthly file, EIA `WCESTUS1`,
 and the Caldara–Iacoviello geopolitical risk index."""))
 
-cells.append(md("### 0 · Setup"))
+cells.append(md(
+"""### 0 · Setup
+
+The next cell makes this notebook **self-contained**: the three CSV files it
+needs are embedded inside the notebook (gzip + base64) and are written to
+`data/` automatically if they are not already there. You can run this single
+`.ipynb` on Colab or anywhere else with no extra uploads."""))
+
+# ---- data bootstrap: embed the required CSVs so the .ipynb runs standalone --
+import base64 as _b64
+import gzip as _gzip
+
+_EMBED_FILES = ["data/gwp1_augmented_panel_model_with_gpr.csv",
+                "data/TWEXBGSMTH_monthly.csv",
+                "data/GPR_monthly.csv"]
+_embed_lines = ["import base64, gzip, os",
+                'os.makedirs("data", exist_ok=True)',
+                'os.makedirs("figures", exist_ok=True)',
+                "_EMBED = {"]
+for _p in _EMBED_FILES:
+    _blob = _b64.b64encode(_gzip.compress(open(_p, "rb").read(), 9)).decode()
+    _embed_lines.append(f'    "{_p}": "{_blob}",')
+_embed_lines += ["}",
+                 "for _path, _blob in _EMBED.items():",
+                 "    if not os.path.exists(_path):",
+                 "        with open(_path, 'wb') as _f:",
+                 "            _f.write(gzip.decompress(base64.b64decode(_blob)))",
+                 "        print('restored', _path)",
+                 "    else:",
+                 "        print('found   ', _path)",
+                 "print('data ready')"]
+cells.append(code("\n".join(_embed_lines)))
+
 cells.append(code(
 """import numpy as np
 import pandas as pd
